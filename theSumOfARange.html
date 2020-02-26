@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<p>
+  David Romanski<br>
+  JavaScript Exercises<br>
+  2/24/2020<br>
+  Eloquent Javascript<br>
+  Chapter 4: The Sum Of A Range
+</p>
+
+<pre id="exercise"></pre>
+
+<script>
+  function range(start, end, step) {
+    var rangeArray = [];
+
+    if (arguments.length == 2) {
+      step = 1;
+    }
+
+    if (start < end) {
+      for (var i = start; i <= end; i += step) {
+        rangeArray.push(i);
+      }
+    } else {
+      for (var i = start; i >= end; i += step) {
+        rangeArray.push(i);
+      }
+    }
+    return rangeArray;
+  }
+
+  function sum(rangeArray) {
+    var sumArray = 0;
+    for (var i = 0; i <= rangeArray.length - 1; i++) {
+      sumArray += rangeArray[i];
+    }
+    return sumArray;
+  }
+
+  var output = "";
+  output += sum(range(1, 100, 5));
+  document.getElementById("exercise").innerHTML = output;
+</script>
+
+</body>
+</html>
