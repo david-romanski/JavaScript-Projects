@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<p>
+  David Romanski<br>
+  JavaScript Exercises<br>
+  2/24/2020<br>
+  Eloquent Javascript<br>
+  Chapter 3: Bean Counting
+</p>
+
+<pre id="exercise"></pre>
+
+<script>
+  function countChar(word, char) {
+    var count = 0;
+    for (var i = 0; i < word.length; i++) {
+      if (word[i] == char) {
+        count++;
+      }
+    }  
+    return count;
+
+  }
+  function countBs(word) {
+    return countChar(word, "B");
+  }
+
+  var output = "";
+  output += countBs("BBbbBB");
+  output += "\n";
+  output += countChar("WWwwWW", "w");
+  document.getElementById("exercise").innerHTML = output;
+</script>
+
+</body>
+</html>

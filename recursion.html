@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<p>
+  David Romanski<br>
+  JavaScript Exercises<br>
+  2/24/2020<br>
+  Eloquent Javascript<br>
+  Chapter 3: Recursion
+</p>
+
+<pre id="exercise"></pre>
+
+<script>
+  function isEven(num) {
+    if (num == 0) {
+      return "even";
+    } 
+    if (num == 1) {
+      return "odd";
+    } 
+    return isEven(num-2);
+  }
+
+  var output = "";
+  num = 75;
+  output += "The number " + num + " is " + isEven(num);
+  document.getElementById("exercise").innerHTML = output;
+</script>
+
+</body>
+</html>
