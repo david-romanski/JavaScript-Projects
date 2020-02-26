@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<p>
+  David Romanski<br>
+  JavaScript Exercises<br>
+  2/24/2020<br>
+  Eloquent Javascript<br>
+  Chapter 2: Chessboard
+</p>
+
+<p id="exercise"></p>
+
+<script>
+  var output = "";
+  for (var i = 1; i <= 100; i++) {
+    if ((i%3 == 0) && (i%5 == 0)) {
+      output += "FizzBuzz <br>";
+    } else if (i%3 == 0) {
+      output += "Fizz <br>";
+    } else  if (i%5 == 0) {
+      output += "Buzz <br>";
+    } else { output +=  i + "<br>"; }
+  }
+  document.getElementById("exercise").innerHTML = output;
+</script>
+
+</body>
+</html>
