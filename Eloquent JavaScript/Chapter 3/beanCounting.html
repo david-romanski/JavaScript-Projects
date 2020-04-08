@@ -5,14 +5,15 @@
 <p>
   David Romanski<br>
   JavaScript Exercises<br>
-  2/24/2020<br>
+  Created: 02/24/2020<br>
+  Updated: 04/07/2020<br>
   Eloquent Javascript<br>
   Chapter 3: Bean Counting<br>
-  Comments: Write a function that counts the numbers of Bs in a string
-       then Write a function that counts the number of any character in a string
+  Comments: Write a function that counts the numbers of Bs in a string<br>
+       Then write a function that counts the number of any character in a string
 </p>
 
-<pre id="exercise"></pre>
+<p id="exercise"></p>
 
 <script>
   function countChar(word, char) {
@@ -29,10 +30,15 @@
     return countChar(word, "B");
   }
 
+  var test1 = "BBbbBB";
+  var test2 = "WWwwWW";
+  var key2 = "w";
   var output = "";
-  output += countBs("BBbbBB");
-  output += "\n";
-  output += countChar("WWwwWW", "w");
+  output += "Testing countBs with " + test1 + ". Count is: ";
+  output += countBs(test1);
+  output += "<br>";
+  output += "Testing countChar with " + test2 + " using " + key2 + ". Count is: ";
+  output += countChar(test2, key2);
   document.getElementById("exercise").innerHTML = output;
 </script>
 
