@@ -5,29 +5,44 @@
 <p>
   David Romanski<br>
   JavaScript Exercises<br>
-  2/24/2020<br>
+  Created: 02/24/2020<br>
+  Updated: 04/08/2020<br>
   Eloquent Javascript<br>
-  Chapter 2: Chessboard
+  Chapter 2: Chessboard<br>
+  Comments: Draw a chessboard grid of size <br>
+  Updated to allow input to determine size.
 </p>
 
+<p>
+  <form id="input" action="" onsubmit="chessboard();return false" class="my-form">
+    Please enter a positive integer for the size of the requested chessboard:
+    <input type="text" size=2 id="len">
+    <input type="submit" value=Submit>
+  </form>
+</p>
+
+<!-- Formatting needed to display checkerboard correctly -->
 <pre id="exercise"></pre>
 
 <script>
-  var output = "";
-  var size = 10;
-  for (var i = 0; i < size; i++) {
-    for (var j = 0; j < size; j++) {
-      if (i%2 == 1) { 
-        if (j%2 == 0) {
-        output += " ";
-        } else output += "#";
-      } else if (j%2 == 0) {
+  function chessboard() {
+    var output = "";
+    var size = document.getElementById("len").value;
+
+    if (!(size > 0)) alert("I'm sorry, I need a positive integer.")
+
+    for (var i = 0; i < size; i++) {
+      for (var j = 0; j < size; j++)
+        if (i%2 == 1)
+          if (j%2 == 0) output += " ";
+          else output += "#";
+        else if (j%2 == 0)
           output += "#";
-      } else output += " ";
+      else output += " ";
+      output += "<br>";
     }
-    output += "<br>";
+    document.getElementById("exercise").innerHTML = output;
   }
-  document.getElementById("exercise").innerHTML = output;
 </script>
 
 </body>
