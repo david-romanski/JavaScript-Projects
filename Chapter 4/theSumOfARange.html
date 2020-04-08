@@ -5,12 +5,14 @@
 <p>
   David Romanski<br>
   JavaScript Exercises<br>
-  2/24/2020<br>
+  Created: 02/24/2020<br>
+  Updated: 04/08/2020<br>
   Eloquent Javascript<br>
   Chapter 4: The Sum Of A Range
+  Comments: Write a range function that returns an array from beginning to end inclusive. Then write a function that returns the sum of array. As a bonus add a third argument in range that performs as a stepper.
 </p>
 
-<pre id="exercise"></pre>
+<p id="exercise"></p>
 
 <script>
   function range(start, end, step) {
@@ -41,6 +43,19 @@
   }
 
   var output = "";
+  output += "Range from 1 to 10: ";
+  output += range(1, 10);
+  output += "<br>"
+
+  output += "Range from 5 to 2 using step -1: ";
+  output += range(5, 2, -1);
+  output += "<br>"
+
+  output += "Sum from 1 to 10: ";
+  output += sum(range(1, 10));
+  output += "<br>"
+
+  output += "Sum from 1 to 100 using step 5: ";
   output += sum(range(1, 100, 5));
   document.getElementById("exercise").innerHTML = output;
 </script>
