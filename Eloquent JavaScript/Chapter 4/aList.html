@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<p>
+  David Romanski<br>
+  JavaScript Exercises<br>
+  04/09/2020<br>
+  Eloquent Javascript<br>
+  Chapter 4: A List
+  Comments: Write a function that builds a list structure from an array, then write a function that builds an array from a list. <br><br>
+  Then add a helper function that takes an element and a list and creates a new list that adds the element to the front of the list, <br>
+  then create another function that takes a list and a number and returns the element at the given position or undefined if element isn't found. 
+</p>
+
+<p id="exercise"></p>
+
+<script>
+	function arrayToList(oldArray) {
+		var newList;
+		for (var i=oldArray.length-1; i >= 0; i--)
+			newList = {value: oldArray[i], rest: newList};
+		return newList;
+	}
+
+	function listToArray(oldList){
+		var newArray = [];
+		for (var node = oldList; node; node = node.rest)
+			newArray.push(node.value);
+		return newArray;
+	}
+
+	function prepend(value, oldList) {
+		return {value, rest: oldList};
+	}
+
+//	function nth(){}
+
+	function nthRecursive(oldList, index){
+		if (!oldList) 
+			return undefined;
+		else 
+			if (index == 0) return oldList.value;
+		else 
+			return nthRecursive(oldList.rest, index-1);
+	}
+
+	var output = "";
+
+	var testArray = [10,20];
+	output += "Make a List from Array [" + testArray +"]<br>";
+	var retList = arrayToList(testArray);
+	
+	var curRest = retList;
+	var curValue = retList.value;
+	while (curRest != undefined) {
+		output += curRest.value + " ";
+		curRest = curRest.rest;
+	}
+	output += "<br><br>";
+
+	testArray = [10,20,30];
+	output += "Make an Array from a List (from array [" + testArray + "]): "; 
+	output += listToArray(arrayToList(testArray)) + "<br><br>";
+
+	output += "Testing prepend: ";
+	retList = prepend(10,prepend(20,null));
+	output += retList.value + " " + retList.rest.value + "<br><br>";
+
+	var index = 1;
+	output += "Find index(" + index + ") in List from Array [" + testArray + "]: ";
+	output += nthRecursive(arrayToList(testArray),index);
+
+	document.getElementById("exercise").innerHTML = output;
+</script>
+
+</body>
+</html>
