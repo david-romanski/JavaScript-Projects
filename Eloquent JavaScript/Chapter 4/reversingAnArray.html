@@ -5,7 +5,7 @@
 <p>
   David Romanski<br>
   JavaScript Exercises<br>
-  02/24/2020<br>
+  04/08/2020<br>
   Eloquent Javascript<br>
   Chapter 4: Reversing An Array
   Comments: Given an array return a new array with everything reversed, then reverse array without using a new array.
@@ -14,39 +14,45 @@
 <p id="exercise"></p>
 
 <script>
-  function range(start, end, step) {
-    var rangeArray = [];
+  function reverseArray(arrayIn) {
+    var arrayOut = [];
 
-    if (arguments.length == 2) {
-      step = 1;
-    }
+    for (var i=0;i<arrayIn.length;i++)
+      arrayOut.push(arrayIn[(arrayIn.length-1)-i]);
 
-    if (start < end) {
-      for (var i = start; i <= end; i += step) {
-        rangeArray.push(i);
-      }
-    } else {
-      for (var i = start; i >= end; i += step) {
-        rangeArray.push(i);
-      }
-    }
-    return rangeArray;
+    return arrayOut;
   }
 
-  function sum(rangeArray) {
-    var sumArray = 0;
-    for (var i = 0; i <= rangeArray.length - 1; i++) {
-      sumArray += rangeArray[i];
+  function reverseArrayInPlace(arrayIn) {
+    var temp;
+
+    temp = arrayIn[0];
+    for (var i=0;i<arrayIn.length;i++) {
+      arrayIn[i] = arrayIn[(arrayIn.length-1)-i];
     }
-    return sumArray;
+    arrayIn[(arrayIn.length-1)] = temp;
+
+    return arrayIn;
   }
 
   var output = "";
-  output += sum(range(1, 100, 5));
+
+  var test = ["A","B","C"];
+  output += "Reversing array " + test + " .<br>";
+  output += reverseArray(test) + "<br>";
+
+  output += "Reversing array " + test + " in place.<br>";  
+  output += reverseArrayInPlace(test) + "<br>";
+
+  test = [1, 2, 3, 4, 5];
+  output += "Reversing array " + test + ".<br>";
+  output += reverseArray(test) + "<br>";
+
+  output += "Reversing array " + test + " in place.<br>";  
+  output += reverseArrayInPlace([1, 2, 3, 4, 5]);
+
   document.getElementById("exercise").innerHTML = output;
 </script>
 
 </body>
 </html>
-
-# THIS HASN'T BEEN STARTED!!!! PLEASE IGNORE THIS CODE!
