@@ -6,11 +6,21 @@
   David Romanski<br>
   JavaScript Exercises<br>
   Created: 02/24/2020<br>
-  Updated: 04/07/2020<br>
+  Updates: 04/07/2020 04/09/2020<br>
   Eloquent Javascript<br>
   Chapter 3: Bean Counting<br>
   Comments: Write a function that counts the numbers of Bs in a string<br>
        Then write a function that counts the number of any character in a string
+  Updated to include inputs and validating.
+</p>
+
+<p>
+	<form id="input" action="" onsubmit="beanCounting();return false" class="my-form">
+		Please enter a string to search and a key (char) to search for:
+		<input type="text" size=10 id="word">
+		<input type="text" size=2 id="key">
+		<input type="submit" value=Submit>
+	</form>
 </p>
 
 <p id="exercise"></p>
@@ -30,16 +40,17 @@
     return countChar(word, "B");
   }
 
-  var test1 = "BBbbBB";
-  var test2 = "WWwwWW";
-  var key2 = "w";
-  var output = "";
-  output += "Testing countBs with " + test1 + ". Count is: ";
-  output += countBs(test1);
-  output += "<br>";
-  output += "Testing countChar with " + test2 + " using " + key2 + ". Count is: ";
-  output += countChar(test2, key2);
-  document.getElementById("exercise").innerHTML = output;
+	function beanCounting() {
+		var test = document.getElementById("word").value;
+		var key = document.getElementById("key").value;	  
+		var output = "";
+
+		if (key.length != 1) alert("Key should just be one character.");
+
+		output += "Found " + countChar(test,key) + " times";
+
+		document.getElementById("exercise").innerHTML = output;
+	}
 </script>
 
 </body>
