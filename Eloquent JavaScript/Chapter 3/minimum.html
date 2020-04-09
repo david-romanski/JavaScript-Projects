@@ -5,13 +5,24 @@
 <p>
   David Romanski<br>
   JavaScript Exercises<br>
-  2/24/2020<br>
+  Created: 02/24/2020<br>
+  Updated: 04/09/2020<br>
   Eloquent Javascript<br>
   Chapter 3: Minimum<br>
-  Comments: Give 2 numbers displays the minimum number
+  Comments: Given 2 numbers displays the minimum number<br>
+  Updated to add inputs and validation.
 </p>
 
-<pre id="exercise"></pre>
+<p>
+  <form id="inputs" action="" onsubmit="minimum();return false" class="my-form">
+    Please enter two values to determine which is the minimum:
+    <input type="text" size=3 id="num1">
+    <input type="text" size=3 id="num2">
+    <input type="submit" value=Submit>
+  </form>
+</p>
+
+<p id="exercise"></p>
 
 <script>
   function min(num1, num2) {
@@ -22,12 +33,15 @@
     } else return num1;
   }
 
-  var output = "";
-  num1 = 100;
-  num2 = 100;
-  output += "Between " + num1 + " and " + num2 + " the minimum is ";
-  output += min(num1, num2);
-  document.getElementById("exercise").innerHTML = output;
+  function minimum() {
+    var output = "";
+    num1 = document.getElementById("num1").value;
+    num2 = document.getElementById("num2").value;
+
+    output += "Between " + num1 + " and " + num2 + " the minimum is ";
+    output += min(num1, num2);
+    document.getElementById("exercise").innerHTML = output;
+  }
 </script>
 
 </body>
