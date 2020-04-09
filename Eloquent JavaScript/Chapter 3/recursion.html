@@ -5,29 +5,44 @@
 <p>
   David Romanski<br>
   JavaScript Exercises<br>
-  2/24/2020<br>
+  Created: 02/24/2020<br>
+  Updated: 04/09/2020<br>
   Eloquent Javascript<br>
   Chapter 3: Recursion<br>
-  Comments: Using recursion determine if a number is odd or even
+  Comments: Using recursion determine if a number is odd or even<br>
+  Updated with input and validation.
 </p>
 
-<pre id="exercise"></pre>
+<p>
+  <form id="input" action="" onsubmit="recursion();return false" class="my-form">
+    Please enter an integer to determine if it is odd or even:
+    <input type="text" size=3 id="num">
+    <input type="submit" value=Submit>
+  </form>
+</p>
+
+<p id="exercise"></p>
 
 <script>
   function isEven(num) {
-    if (num == 0) {
+    if (Math.abs(num) == 0) {
       return "even";
     } 
-    if (num == 1) {
+    if (Math.abs(num) == 1) {
       return "odd";
     } 
-    return isEven(num-2);
+    return isEven(Math.abs(num)-2);
   }
 
-  var output = "";
-  num = 75;
-  output += "The number " + num + " is " + isEven(num);
-  document.getElementById("exercise").innerHTML = output;
+  function recursion() {
+    var output = "";
+    var num = document.getElementById("num").value;
+
+    if (!(Number.isInteger(+num))) alert("I'm sorry, I need an integer.")
+
+    output += "The number " + num + " is " + isEven(num);
+    document.getElementById("exercise").innerHTML = output;
+  }
 </script>
 
 </body>
