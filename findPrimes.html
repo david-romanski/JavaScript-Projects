@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<p>
+  David Romanski<br>
+  04/10/2020<br>
+  Eloquent Javascript<br>
+  Find Primes<br>
+  Comments: This program finds all the primes of a number
+</p>
+
+<p id="exercise"></p>
+
+<script>
+	var number1 = 144;
+	var remainder = number1;
+	var factorsArray = [];
+	var output = "";
+
+	output += "Number is " + number1 + "<br>";
+
+	while (true) {
+		tempRem = remainder;
+		for (var i = 2; i<remainder; i++)
+			if (remainder%i == 0) {
+				output += i + " ";
+				factorsArray.push(i);
+				remainder = remainder/i;
+				break;
+			}
+		if (tempRem == remainder){
+			factorsArray.push(remainder);
+			output += remainder + "<br>";
+			break;
+		}
+	}
+
+	output += "Prime factors are: " + factorsArray;
+
+	document.getElementById("exercise").innerHTML = output;
+</script>
+
+</body>
+</html>
