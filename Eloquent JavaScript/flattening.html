@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<p>
+  David Romanski<br>
+  JavaScript Exercises<br>
+  04/10/2020<br>
+  Eloquent Javascript<br>
+  Chapter 5: Flattening
+  Comments: Use REDUCE and CONCAT to flatten an array of arrays.
+
+</p>
+
+<p id="exercise"></p>
+
+<script>
+	var output = "";
+
+	let arrays = [[1, 2, 3], [4, 5], [6]];
+	// Your code here.
+	output += arrays;
+	output += "<br>";
+	output += arrays.reduce((flat, current) => flat.concat(current), []);
+	
+	// → [1, 2, 3, 4, 5, 6]
+
+	document.getElementById("exercise").innerHTML = output;
+</script>
+
+</body>
+</html>
