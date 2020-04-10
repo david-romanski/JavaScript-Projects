@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<p>
+  David Romanski<br>
+  04/10/2020<br>
+  Eloquent Javascript<br>
+  Find Primes<br>
+  Comments: This program finds all the primes of a number
+</p>
+
+<p id="exercise"></p>
+
+<script>
+	function findPrimes(num){
+		var remainder = num;
+		var factorsArray = [];
+		var tempRem;
+
+		while (true) {
+			tempRem = remainder;
+			for (var i = 2; i<remainder; i++)
+				if (remainder%i == 0) {
+					output += i + " ";
+					factorsArray.push(i);
+					remainder = remainder/i;
+					break;
+				}
+			if (tempRem == remainder) {
+				factorsArray.push(remainder);
+				output += remainder + "<br>";
+				break;
+			}
+		}
+		return factorsArray;
+	}
+
+	var number1 = 69;
+	var num1Array = [];
+	var number2 = 3;
+	var num2Array = [];
+	var commonFactors = [];
+
+	output = "";
+
+	num1Array = findPrimes(number1);
+	num2Array = findPrimes(number2);
+
+	for(var i = 0; i < num1Array.length; i++)
+		for(var j = 0; j < num2Array.length; j++)
+			if (num1Array[i] == num2Array[j]) {
+				commonFactors.push(num1Array[i]);
+				break;
+			}
+
+	output += "For number " + number1 + " prime numbers are: " + num1Array + "<br>";
+	output += "For number " + number2 + " prime numbers are: " + num2Array + "<br>";
+	output += "Common factors are: " + commonFactors + "<br>";
+
+	var final = 1;
+	for(var i = 0; i < commonFactors.length; i++)
+		final *= commonFactors[i];
+
+	output += "Or: " + final;
+
+	document.getElementById("exercise").innerHTML = output;
+</script>
+
+</body>
+</html>
