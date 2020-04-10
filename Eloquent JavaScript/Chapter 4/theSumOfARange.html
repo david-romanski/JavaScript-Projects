@@ -6,10 +6,21 @@
   David Romanski<br>
   JavaScript Exercises<br>
   Created: 02/24/2020<br>
-  Updated: 04/08/2020<br>
+  Updated: 04/08/2020 04/09/2020<br>
   Eloquent Javascript<br>
   Chapter 4: The Sum Of A Range
   Comments: Write a range function that returns an array from beginning to end inclusive. Then write a function that returns the sum of array. As a bonus add a third argument in range that performs as a stepper.
+  Updated to add inputs and validation.
+</p>
+
+<p>
+  <form id="input" action"" onsubmit="sumOfRange();return false" class="my-form">
+    Please submit the start and the end of the range and the step of the range:
+    <input type="text" size=4 id="startRange">
+    <input type="text" size=4 id="endRange">
+    <input type="text" size=4 id="stepRange">
+    <input type="submit" value=Submit>
+  </form>
 </p>
 
 <p id="exercise"></p>
@@ -42,22 +53,26 @@
     return sumArray;
   }
 
-  var output = "";
-  output += "Range from 1 to 10: ";
-  output += range(1, 10);
-  output += "<br>"
+  function sumOfRange() {
+    var startRange = document.getElementById("startRange").value;
+    var endRange = document.getElementById("endRange").value;
+    var stepRange = document.getElementById("stepRange").value;
 
-  output += "Range from 5 to 2 using step -1: ";
-  output += range(5, 2, -1);
-  output += "<br>"
+    if (!(Number.isInteger(+startRange))) alert("startRange");
+    if (!(Number.isInteger(+endRange))) alert("endRange");
+    if (!(Number.isInteger(+stepRange))) alert("stepRange");
 
-  output += "Sum from 1 to 10: ";
-  output += sum(range(1, 10));
-  output += "<br>"
+    if ((+startRange < +endRange) && (+stepRange < 0))
+      alert("That step doesn't make sense.")
+    if ((+startRange > +endRange) && (+stepRange > 0))
+      alert("That step doesn't make sense.")
 
-  output += "Sum from 1 to 100 using step 5: ";
-  output += sum(range(1, 100, 5));
-  document.getElementById("exercise").innerHTML = output;
+    var output = "";
+    output += "The sum is: ";
+    output += sum(range(+startRange,+endRange,+stepRange));
+
+    document.getElementById("exercise").innerHTML = output;
+  }
 </script>
 
 </body>
