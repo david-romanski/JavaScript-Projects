@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<p>
+  David Romanski<br>
+  JavaScript Exercises<br>
+  04/11/2020<br>
+  Eloquent Javascript<br>
+  Chapter 5: Dominate Writing Direction<br>
+  Comments: Write a function that computes the dominate writing style.
+  <br><br>
+  Hit f12 for output.
+  <br><br>
+  console.log(dominantDirection("Hello!"));<br>
+  <br>
+  console.log(dominantDirection("Hey, مساء الخير"));
+</p>
+
+<p id="exercise"></p>
+
+<script src="script.js"></script>
+<script>
+
+	function characterScript(code) {
+	  for (let script of SCRIPTS) {
+	    if (script.ranges.some(([from, to]) => {
+	      return code >= from && code < to;
+	    })) {
+	      return script;
+	    }
+	  }
+	  return null;
+	}
+
+	function countBy(items, groupName) {
+	  let counts = [];
+	  for (let item of items) {
+	    let name = groupName(item);
+	    let known = counts.findIndex(c => c.name == name);
+	    if (known == -1) {
+	      counts.push({name, count: 1});
+	    } else {
+	      counts[known].count++;
+	    }
+	  }
+	  return counts;
+	}
+
+
+	function dominantDirection(text) {
+	  	// Your code here.
+	  	let count = countBy(text, char => {
+	    	let script = characterScript(char.codePointAt(0));
+			return script ? script.name : "none";
+  		}).filter(({name}) => name != "none");
+
+  		if (count.length == 0) return "ltr";
+
+  		return count.reduce((a,b) => a.count > b.count ? a : b).name;
+	}
+
+	console.log(dominantDirection("Hello!"));
+	// → ltr
+	console.log(dominantDirection("Hey, مساء الخير"));
+	// → rtl
+</script>
+
+</body>
+</html>
