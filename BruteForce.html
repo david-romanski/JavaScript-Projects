@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+</head>
+<body>
+	<p>
+		Programmer: David Romanski<br>
+		Written: 04/07/2020<br>
+		Updated: 04/10/2020<br>
+		Program: Factoring First Method<br>
+		Comments: This way is just called 'Starting Out' and seems like a brute force method to solve.<br>
+		Updated with adding findingPrimes and GCF and put everything together.
+		<br>
+		<form id="inputs" action="" onsubmit="BruteForce();return false" class="my-form">
+			<input type="text" size=3 id="A">
+			x<sup>2</sup> + 
+			<input type="text" size=3 id="B">
+			x +
+			<input type="text" size=3 id="C">
+			<input type="submit" value=Submit>
+		</form>
+		<br>
+	</p>
+    <p id="answer"></p>
+
+	<script>
+
+	function findPrimes(num){
+		var remainder = num;
+		var factorsArray = [];
+		var tempRem;
+
+		while (true) {
+			tempRem = remainder;
+			for (var i = 2; i<remainder; i++)
+				if (remainder%i == 0) {
+					factorsArray.push(i);
+					remainder = remainder/i;
+					break;
+				}
+			if (tempRem == remainder) {
+				factorsArray.push(remainder);
+				break;
+			}
+		}
+		return factorsArray;
+	}
+
+	function GCF(num1, num2, num3) {
+		var number1 = num1;
+		var num1Array = [];
+		var number2 = num2;
+		var num2Array = [];
+		var number3 = num3;
+		var num3Array = [];
+		var commonFactors = [];
+
+		num1Array = findPrimes(number1);
+		num2Array = findPrimes(number2);
+		num3Array = findPrimes(number3);
+
+		for(var i = 0; i < num1Array.length; i++)
+			for(var j = 0; j < num2Array.length; j++)
+				for(var k = 0; k < num3Array.length; k++)
+				if ((num1Array[i] == num2Array[j]) && (num1Array[i] == num3Array[k]) && (num2Array[j] == num3Array[k])){
+					commonFactors.push(num1Array[i]);
+					break;
+				}
+
+		var final = 1;
+		for(var i = 0; i < commonFactors.length; i++)
+			final *= commonFactors[i];
+
+		return final;
+	}
+
+		function BruteForce() {
+			var rawA = document.getElementById("A").value;
+			var factorsA = [];
+			var rawB = document.getElementById("B").value;
+			var possibleB;
+			var rawC = document.getElementById("C").value;
+			var factorsC = [];
+
+			if (!Number.isInteger(+rawA)) alert("I'm sorry, I need A to be an integer");
+			if (!Number.isInteger(+rawB)) alert("I'm sorry, I need B to be an integer");
+			if (!Number.isInteger(+rawC)) alert("I'm sorry, I need C to be an integer");
+
+			var answer = "";
+			var output = "";
+			
+			// Just Making sure that the values loaded.
+			output += rawA + "x<sup>2</sup> + " + rawB + "x + " + rawC + "<br>";
+
+			var factor = GCF(rawA, rawB, rawC);
+			var A = rawA/factor;
+			var B = rawB/factor;
+			var C = rawC/factor;
+
+			// Showing factors of A
+			output += "A(" + A + ") can be ";
+			if (A>0) {
+				for(i=1; i<=Math.sqrt(A); i++) {
+					if ((A % i) == 0) {
+						factorsA.push(A/i);
+						factorsA.push(i);
+						output += "(" + (A / i) + " * " + i + ") "; 
+						factorsA.push(-A/i);
+						factorsA.push(-i);
+						output += "(" + (-A / i) + " * " + -i + ") "; 
+					}
+				}
+			}
+			if (A<0) {
+				var absA = Math.abs(A);
+				for(i=1; i<=Math.sqrt(absA); i++) {
+					if ((absA % i) == 0) {
+						factorsA.push(-absA/i);
+						factorsA.push(i);
+						output += "(" + (-A / i) + " * " + i + ") "; 
+						factorsA.push(absA/i);
+						factorsA.push(-i);
+						output += "(" + (A / i) + " * " + -i + ") "; 
+					}
+				}
+			}
+			output += "<br>";
+
+			// Showing factors of C
+			output += "C(" + C + ") can be ";
+			if (C>0) {
+				for(i=1; i<=Math.sqrt(C); i++) {
+					if ((C % i) == 0) {
+						factorsC.push(C/i);
+						factorsC.push(i);
+						output += "(" + (C / i) + " * " + i + ") "; 
+						factorsC.push(-C/i);
+						factorsC.push(-i);
+						output += "(" + (-C / i) + " * " + -i + ") "; 
+					}
+				}
+			}
+			if (C<0) {
+				var absC = Math.abs(C);
+				for(i=1; i<=Math.sqrt(absC); i++) {
+					if ((absC % i) == 0) {
+						factorsC.push(-absC/i);
+						factorsC.push(i);
+						output += "(" + (-C / i) + " * " + i + ") "; 
+						factorsC.push(absC/i);
+						factorsC.push(-i);
+						output += "(" + (C / i) + " * " + -i + ") "; 
+					}
+				}
+			}
+			output += "<br>";
+
+			output += "That means that B(" + B + ") can be <br>";
+
+			for(i=0; i<factorsA.length; i += 2) {
+				for(j=0; j<factorsC.length; j += 2) {
+					output += "(" + factorsA[i] + " * " + factorsC[j] + ") + (" + factorsA[i+1] + " * " + factorsC[j+1] + ") = ";
+					possibleB = factorsA[i] * factorsC[j] + factorsA[i+1] * factorsC[j+1]; 
+					output += possibleB + "<br>";
+					if (possibleB == B)
+						if (!((factorsA[i] < 0) && (factorsA[i+1] < 0) && (factorsC[j] < 0) && (factorsC[j+1] < 0))) {
+							output += "WINNER WINNER CHICKEN DINNER!!!<br>";
+							if (factor != 1)
+								answer += factor;  
+							answer += "(";
+							if (!(Math.abs(factorsA[i]) == 1)) 
+								answer += factorsA[i];
+							if (factorsA[i] == -1)
+								answer += "-";
+							answer += "x + " + factorsC[j+1] + ")(";
+							if (!(Math.abs(factorsA[i+1]) == 1))
+								answer += factorsA[i+1]
+							if (factorsA[i+1] == -1)
+								answer += "-";
+							answer += "x + " + factorsC[j] + ")<br>";
+							output += answer + "<br>";
+						}
+					output += "(" + factorsA[i+1] + " * " + factorsC[j] + ") + (" + factorsA[i] + " * " + factorsC[j+1] + ") = ";
+					possibleB = factorsA[i+1] * factorsC[j] + factorsA[i] * factorsC[j+1]; 
+					output += possibleB + "<br>";
+					if (possibleB == B)
+						if (!((factorsA[i] < 0) && (factorsA[i+1] < 0) && (factorsC[j] < 0) && (factorsC[j+1] < 0))) {
+							output += "WINNER WINNER CHICKEN DINNER!!!<br>";
+							if (factor != 1)
+								answer += factor;  
+							answer += "(";
+							if (!(Math.abs(factorsA[i]) == 1)) 
+								answer += factorsA[i];
+							if (factorsA[i] == -1)
+								answer += "-";
+							answer += "x + " + factorsC[j+1] + ")(";
+							if (!(Math.abs(factorsA[i+1]) == 1))
+								answer += factorsA[i+1]
+							if (factorsA[i+1] == -1)
+								answer += "-";
+							answer += "x + " + factorsC[j] + ")<br>";
+							output += answer + "<br>";	
+						}
+
+				}				
+			} 
+
+			output += "<br>My answer is: <br>"
+			output += answer;
+
+			document.getElementById("answer").innerHTML = output;
+		}
+	</script>
+</body>
+</html>
