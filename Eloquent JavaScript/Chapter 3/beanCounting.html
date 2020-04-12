@@ -37,6 +37,7 @@
 
   }
   function countBs(word) {
+    alert("^('v')^ - Hi!")
     return countChar(word, "B");
   }
 
@@ -47,7 +48,11 @@
 
 		if (key.length != 1) alert("Key should just be one character.");
 
-		output += "Found " + countChar(test,key) + " times";
+		output += "Found ";
+    if (key == "B")
+      output += countBs(test);
+    else output += countChar(test,key);
+    output += " times";
 
 		document.getElementById("exercise").innerHTML = output;
 	}
