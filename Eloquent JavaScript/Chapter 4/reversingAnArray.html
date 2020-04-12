@@ -7,7 +7,7 @@
   JavaScript Exercises<br>
   04/08/2020<br>
   Eloquent Javascript<br>
-  Chapter 4: Reversing An Array
+  Chapter 4: Reversing An Array<br>
   Comments: Given an array return a new array with everything reversed, then reverse array without using a new array.
 </p>
 
@@ -27,9 +27,8 @@
     var temp;
 
     temp = arrayIn[0];
-    for (var i=0;i<arrayIn.length;i++) {
+    for (var i=0;i<arrayIn.length;i++)
       arrayIn[i] = arrayIn[(arrayIn.length-1)-i];
-    }
     arrayIn[(arrayIn.length-1)] = temp;
 
     return arrayIn;
@@ -49,7 +48,7 @@
   output += reverseArray(test) + "<br>";
 
   output += "Reversing array " + test + " in place.<br>";  
-  output += reverseArrayInPlace([1, 2, 3, 4, 5]);
+  output += reverseArrayInPlace(test);
 
   document.getElementById("exercise").innerHTML = output;
 </script>
