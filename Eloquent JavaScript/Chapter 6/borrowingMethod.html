@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+</head>
+<body>
+
+<p>
+  David Romanski<br>
+  JavaScript Exercises<br>
+  04/13/2020<br>
+  Eloquent Javascript<br>
+  Chapter 6: Borrowing A Method<br>
+  Comments: call hasOwnProperty on an object that has its own property by that name.
+</p>
+
+<p>
+	let map = {one: true, two: true, hasOwnProperty: true};<br>
+	// Fix this call<br>
+	console.log(map.hasOwnProperty("one"));<br>
+	// → true<br>
+	<br><br>
+	Updated to: <br>
+	console.log(Object.prototype.hasOwnProperty.call(map, "one"));
+	<br><br>
+	Press f12 for output.
+</p>
+
+<p id="exercise"></p>
+
+<script>
+	let map = {one: true, two: true, hasOwnProperty: true};
+
+	// Fix this call
+	console.log(Object.prototype.hasOwnProperty.call(map, "one"));
+	// → true
+</script>
+
+</body>
+</html>
