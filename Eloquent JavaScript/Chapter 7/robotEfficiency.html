@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<script type="text/javascript" src="07_robot.js"></script>
+	<script type="text/javascript" src="animatevillage.js"></script>
+</head>
+<body>
+
+<p>
+  David Romanski<br>
+  JavaScript Exercises<br>
+  04/13/2020<br>
+  Eloquent Javascript<br>
+  Chapter 7: Robot Efficiency<br>
+  Comments: Make a more efficent robot.
+</p>
+
+<p id="exercise"></p>
+
+<script>
+	// Your code here
+	function lazyRobot({place, parcels}, route) {
+		if (route.lenth == 0) {
+			// Describe a route for every parcel
+			let routes = parcels.map(parcel => {
+				if (parcel.place != place) {
+					return {route: findRoute(roadGraph, place, parcel.place),
+						pickUp: true};
+				} else {
+					return {route: findRoute(roadGraph, place, parcel.addres),
+						pickUp: false};
+				}
+			});
+
+			// This determines the precedence a route gets when choosing.
+			// Route length counts negatively, routes that pick up a package
+			// get a small bonus.
+			function score({route, pickUp}) {
+				return (pickUp ? 0.5 : 0) - route.length;
+			}
+			route = routes.reduce((a, b) => score(a) > score(b) ? a : b).route;
+		}
+
+		return {direction: route[0], memory: route.slice(1)};
+	}
+
+	runRobotAnimation(VillageState.random(), lazyRobot, []);
+</script>
+
+</body>
+</html>

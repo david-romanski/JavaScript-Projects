@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+</head>
+<body>
+
+<p>
+  David Romanski<br>
+  JavaScript Exercises<br>
+  04/13/2020<br>
+  Eloquent Javascript<br>
+  Chapter 7: Persistent Group<br>
+  Comments: call hasOwnProperty on an object that has its own property by that name.
+</p>
+
+<p id="exercise"></p>
+
+<script>
+	class PGroup {
+		// Your code here
+		constructor(members) {
+	    this.members = members;
+	  }
+
+	  add(value) {
+	    if (this.has(value)) return this;
+	    return new PGroup(this.members.concat([value]));
+	  }
+
+	  delete(value) {
+	    if (!this.has(value)) return this;
+	    return new PGroup(this.members.filter(m => m !== value));
+	  }
+
+	  has(value) {
+	    return this.members.includes(value);
+	  }
+	}
+		PGroup.empty = new PGroup([]);
+	
+
+	let a = PGroup.empty.add("a");
+	let ab = a.add("b");
+	let b = ab.delete("a");
+
+	console.log(b.has("b"));
+	// → true
+	console.log(a.has("b"));
+	// → false
+	console.log(b.has("a"));
+	// → false
+</script>
+
+</body>
+</html>
