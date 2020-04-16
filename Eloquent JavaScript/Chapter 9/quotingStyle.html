@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<head>
+	<meta charset="utf-8"/>
+</head>
+<html>
+<body>
+
+<p>
+  David Romanski<br>
+  JavaScript Exercises<br>
+  Created: 04/13/2020<br>
+  Eloquent Javascript<br>
+  Chapter 9: Quoting Style<br>
+  Comments: Replace all single quotes with double quotes unlcess it is part of a contraction.
+</p>
+
+<p id = "exercise">
+	Press f12 for output.
+</p>
+
+<script>
+	let text = "'I'm the cook,' he said, 'it's my job.'";
+	// Change this call.
+	console.log(text.replace(/(^|\W)'|'(\W|$)/g, '$1"$2'));
+	// → "I'm the cook," he said, "it's my job."
+</script>
+
+</body>
+</html>
