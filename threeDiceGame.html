@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<head>
+	<meta charset="utf-8"/>
+</head>
+<html>
+<body>
+
+<p>
+ Programmer: David Romanski<br>
+ Three Dice Game<br>
+ Created: 04/16/2020<br>
+ You are given a dice and must choose to roll again (up to 3 rolls) or keep your roll.
+</p>
+
+<p>
+	You are given a 6 sided dice.  After you roll you get the amount back in dollars (1 = $1, 2 = $2,...).<br>
+	After you roll once you can keep or roll again. After your second roll you can keep<br>
+	or roll again. After your third roll you must keep the roll.<br><br>
+	<button onclick="rollDice()">Roll Dice</button>
+	<button onclick="keepRoll()">Keep Roll</button>
+</p>
+
+<p id = "output"></p>
+
+<script>
+	var rollsLeft = 3;
+	var output = "";
+	var die = 0;
+
+	function keepRoll(){
+		rollsLeft = 0;
+		output += "You won $" + die + "!!!<br>";
+		document.getElementById("output").innerHTML = output;
+	};
+
+	function rollDice(){
+		output =  "Rolls Left: " + rollsLeft + "<br>";
+		rollsLeft -= 1;
+		if (rollsLeft > 0) {
+			die = Math.floor(Math.random() * 6) + 1;
+			output += "You rolled a " + die + ".<br>";
+			document.getElementById("output").innerHTML = output;
+		} else keepRoll();
+	}
+
+//	enter = input("Hit enter to roll the first die: ")
+//	die = random.randint(1,6)
+//	print("You rolled a " + str(die) + ".")
+//	while True:
+//			enter = input("Do you want to keep?(y/n): ")
+//			if (enter == 'y'): 
+//				break
+//			if (enter == 'n'):
+//				break
+//			print("I'm sorry, I didn't understand that.")
+//
+//	if (enter != 'y'):
+//		print("Rolling again!!!")
+//		die = random.randint(1,6)
+//		print("You rolled a " + str(die) + ".")
+//
+//		while True:
+//				enter = input("Do you want to keep?(y/n): ")
+//				if (enter == 'y'):
+//					break 
+//				if (enter == 'n'):
+//					break
+//				print("I'm sorry, I didn't understand that.")
+//				continue
+
+//		if enter != 'y':
+//			print("Rolling again!!!")
+//			die = random.randint(1,6)
+//			print("You rolled a " + str(die) + ".")
+//			print("You won $" + str(die) + "!!!")
+//		else:
+//			print("You won $" + str(die) + "!!!")
+//	else:
+//		print("You won $" + str(die) + "!!!")
+
+</script>
+</body>
+</html>
