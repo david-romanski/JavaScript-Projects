@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<head>
+	<meta charset="utf-8"/>
+	<script src="12_language.js"></script>
+</head>
+<html>
+<body>
+
+<p>
+  David Romanski<br>
+  JavaScript Exercises<br>
+  Created: 04/16/2020<br>
+  Eloquent Javascript<br>
+  Chapter 12: Fixing Scope<br>
+  Comments: Add a special form SET which gives a bindinge new value, updating the binding in an outer scope if it doesn't already exist in the inner scopre..
+</p>
+
+<p id = "exercise">Press f12 for output.</p>
+
+<script>
+
+specialForms.set = (args, env) => {
+  // Your code here.
+  if (args.length != 2 || args[0].type != "word") {
+  	throw new SyntaxError("Bad use of set");
+  }
+  let varName = args[0].name;
+  let value = evaluate(args[1], env);
+
+  for (let scope = env; scope; scope = Object.getPrototypeOf(scope)) {
+  	if (Object.prototype.hasOwnProperty.call(scope, varName)) {
+  		scope[varName] = value;
+  		return value;
+  	}
+  }
+  throw new ReferenceError('Setting undefined variable ${varName}');
+};
+
+run(`
+do(define(x, 4),
+   define(setx, fun(val, set(x, val))),
+   setx(50),
+   print(x))
+`);
+// → 50
+run(`set(quux, true)`);
+// → Some kind of ReferenceError
+
+</script>
+</body>
+</html>
