@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<head>
+	<meta charset="utf-8"/>
+</head>
+<html>
+<body>
+
+<p>
+  David Romanski<br>
+  Created: 04/16/2020<br>
+  Fuzz Blitz<br>
+  Comments: There are 16 buttons and behind them is randomly Fuzz or Blitz. If you get Blitz you win but if you get Fuzz you lose.
+</p>
+	<button onclick="revealButton(0)">Click me</button>
+	<button onclick="revealButton(1)">Click me</button>
+	<button onclick="revealButton(2)">Click me</button>
+	<button onclick="revealButton(3)">Click me</button>
+	<br>
+	<button onclick="revealButton(4)">Click me</button>
+	<button onclick="revealButton(5)">Click me</button>
+	<button onclick="revealButton(6)">Click me</button>
+	<button onclick="revealButton(7)">Click me</button>
+	<br>
+	<button onclick="revealButton(8)">Click me</button>
+	<button onclick="revealButton(9)">Click me</button>
+	<button onclick="revealButton(10)">Click me</button>
+	<button onclick="revealButton(11)">Click me</button>
+	<br>
+	<button onclick="revealButton(12)">Click me</button>
+	<button onclick="revealButton(13)">Click me</button>
+	<button onclick="revealButton(14)">Click me</button>
+	<button onclick="revealButton(15)">Click me</button>
+</p>
+
+<p id = "outputs"></p>
+
+<p id = "ending"><br><br></p>
+
+<script>
+	var buttonValues = [];
+	for (let i = 0; i < 16; i++) {
+		buttonValues[i] = Math.floor(Math.random() * 2);
+	}
+	var gameOver = false;
+	var output = "";
+	var wins = 0;
+
+	function revealButton(button) {
+		if (!gameOver) {
+			if (buttonValues[button] == -1) {
+				output = "Button has already been selected";
+				document.getElementById("outputs").innerHTML = output;
+			}
+			if (buttonValues[button] == 0) {
+				output = "Fuzz!!<br> You have lost.";
+				gameOver = true;
+				document.getElementById("outputs").innerHTML = output;
+				var ending = "Game over.<br>You won " + wins + " times<br>";
+				ending += 'Please hit replay to play again. <button onclick="location.reload()">Replay?</button>';
+				document.getElementById("ending").innerHTML = ending;
+			}
+			if (buttonValues[button] == 1) { 
+				output = "Blitz!!<br> You have won!";
+				buttonValues[button] = -1;
+				wins += 1;
+				document.getElementById("outputs").innerHTML = output;
+			}
+		}
+	}
+
+</script>
+</body>
+</html>
