@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<head>
+	<meta charset="utf-8"/>
+</head>
+<html>
+<body>
+
+<p>
+ David Romanski<br>
+ Create: 04/16/20<br>
+ Introduction to Java Programming<br>
+ Y Daniel Liang<br>
+ Programming Exercise 11.9<br>
+ Comments: Determine the area of a polygon.
+</p>
+
+<p>
+	<form id="inputs" action="" onsubmit="FourFive();return false" class="my-form">
+		Please enter the number of sides and the length of each sides:
+		<input type="text" size=2 id="numSides">
+		<input type="text" size=2 id="lenSides">
+		<input type="submit" value=Submit>
+	</form>
+</p>
+
+<p id = "exercise"></p>
+
+<script>
+function FourFive() {
+	var numSides = document.getElementById("numSides").value;
+	var lenSides = document.getElementById("lenSides").value;
+
+	var output = "";
+
+	if (!(+numSides > 0)) alert("I'm sorry, I need a positive integer for number of sides.");
+	if (!(+lenSides > 0)) alert("I'm sorry, I need a positive number for length of sides.");	
+		
+	var area = ((numSides * Math.pow(lenSides, 2))/(4*Math.tan(Math.PI/numSides)));
+		
+	area = Math.round(area*100);
+	area = area/100;
+	output += "The area is : " + area;
+
+	document.getElementById("exercise").innerHTML = output;
+}
+</script>
+</body>
+</html>
