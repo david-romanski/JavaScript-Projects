@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+</head>
+<body>
+	<p>
+		Programmer: David Romanski<br>
+		Written: 04/28/2020<br>
+		Program: Trunk Method<br>
+		Comments: This is the Trunk method of solving a quadratic equations.<br>
+		The Trunk method is usually good if x<sup>2</sup> has a constant, or A != 1
+		<br>
+		<form id="inputs" action="" onsubmit="trunkMethod();return false" class="my-form">
+			<input type="text" size=3 id="A">
+			x<sup>2</sup> + 
+			<input type="text" size=3 id="B">
+			x +
+			<input type="text" size=3 id="C">
+			<input type="submit" value=Submit>
+		</form>
+		<br>
+	</p>
+    <p id="answer"></p>
+
+	<script>
+	var rawA;
+	var rawB;
+	var rawC;
+
+	var AC;
+	var factorsList = [];
+	var X1;
+	var Y1;
+
+	function findPrimes(num){
+		var remainder = num;
+		var factorsArray = [];
+		var tempRem;
+
+		while (true) {
+			tempRem = remainder;
+			for (var i = 2; i<remainder; i++)
+				if (remainder%i == 0) {
+					factorsArray.push(i);
+					remainder = remainder/i;
+					break;
+				}
+			if (tempRem == remainder) {
+				factorsArray.push(remainder);
+				break;
+			}
+		}
+		return factorsArray;
+	}
+
+	function GCF(num1, num2) {
+		var number1 = Math.abs(num1);
+		var num1Array = [];
+		var number2 = Math.abs(num2);
+		var num2Array = [];
+		var commonFactors = [];
+
+		num1Array = findPrimes(number1);
+		num2Array = findPrimes(number2);
+
+		for(var i = 0; i < num1Array.length; i++)
+			for(var j = 0; j < num2Array.length; j++) {
+				console.log(num1Array[i]);
+				console.log(num2Array[j]);
+				if (num1Array[i] == num2Array[j]){
+					commonFactors.push(num1Array[i]);
+					break;
+				}
+			}
+
+		var final = 1;
+		for(var i = 0; i < commonFactors.length; i++)
+			final *= commonFactors[i];
+
+		return final;
+	}
+
+	function findFactors(term) {
+		var listFactors = [];
+
+		if (term>0) {
+			for(i=1; i<=Math.sqrt(term); i++) {
+				if ((term % i) == 0) {
+					listFactors.push(term/i);
+					listFactors.push(i);
+					listFactors.push(-term/i);
+					listFactors.push(-i);
+				}
+			}
+		}
+		if (term<0) {
+			var absTerm = Math.abs(term);
+			for(i=1; i<=Math.sqrt(absTerm); i++) {
+				if ((absTerm % i) == 0) {
+					listFactors.push(-absTerm/i);
+					listFactors.push(i);
+					listFactors.push(absTerm/i);
+					listFactors.push(-i);
+				}
+			}
+		}
+		return listFactors;
+	}
+
+	function part2() {
+		output = "First we need to multiply A into C.<br>";
+		output = "That means the equation turns into:<br>";
+		AC = +rawA * +rawC;
+		output += "x<sup>2</sup>";
+
+		if (+rawB < 0) output += " - ";
+		else output += " + ";
+
+		output += Math.abs(+rawB) + "x";
+
+		if (+rawC < 0) output += " - ";
+		else output += " + ";
+
+		output += Math.abs(AC) + "<br>";
+
+		output += "<button onclick='part3()'>Continue...</button>";
+		document.getElementById("answer").innerHTML = output;
+	}
+
+	function part3() {
+		output = "Then we find all the factors of AC.<br>";
+		factorsList = findFactors(AC);
+
+		for (let i = 0; i < factorsList.length; i += 2) {
+			output += factorsList[i] + " * " + factorsList[i+1] + "<br>";
+		}
+
+		output += "<button onclick='part4()'>Continue...</button>";
+		document.getElementById("answer").innerHTML = output;
+	}
+
+	function part4() {
+		output = "Then we find which factors combine to get B.<br>";
+		for (let i = 0; i < factorsList.length; i += 2) {
+			output += factorsList[i] + " + " + factorsList[i+1] + " = ";
+			possibleB = factorsList[i] + factorsList[i+1];
+			output +=  possibleB+ "<br>";
+			if (possibleB == +rawB) {
+				output += "WINNING!! <BR>";
+				X1 = factorsList[i];
+				Y1 = factorsList[i+1]
+			}
+		}
+		output += "<button onclick='part5()'>Continue...</button>";
+		document.getElementById("answer").innerHTML = output;
+	}
+
+	function part5() {
+		output = "Then we take the correct factors put them into separate terms.<br>"
+		output += "(x"
+		if (X1 < 0) output += " - ";
+		else output += " + ";
+		output += Math.abs(X1) + ")(x"
+		if (+Y1 < 0) output += " - ";
+		else output += " + ";
+		output += Math.abs(Y1) + ")<br>";
+		output += "<button onclick='part6()'>Continue...</button>";
+		document.getElementById("answer").innerHTML = output;
+	}
+
+	function part6() {
+		output =  "Please remember that we multipied A into C.<br>";
+		output += "That means we need to remove A.<br>";
+		// (x +/- (X1/A))(x +/- (Y1/A))
+		output += "(x"
+		if (X1 < 0) output += " - ";
+		else output += " + ";
+		output += Math.abs(X1) + "/" + rawA + ")(x"
+		if (+Y1 < 0) output += " - ";
+		else output += " + ";
+		output += Math.abs(Y1) + "/" + rawA + ")<br>";
+		output += "<button onclick='part7()'>Continue...</button>";
+		document.getElementById("answer").innerHTML = output;
+	}
+
+	function part7() {
+		output = "If (X1/A) or (Y1/A) don't become whole numbers, simplify the fraction<br>";
+		output = "and put the denominator infront of x.<br>"
+
+		denom = GCF(X1, rawA);
+		output += "(";
+		if ((rawA/denom) != 1)
+			output += (rawA/denom);
+		output += "x";
+		if (X1 < 0) output += " - ";
+		else output += " + ";
+		output += Math.abs(X1/denom) + ")("
+
+		denom = GCF(Y1, rawA);
+		if ((rawA/denom) != 1)
+			output += (rawA/denom);
+		output += "x";
+		if (+Y1 < 0) output += " - ";
+		else output += " + ";
+		output += Math.abs(Y1/denom) + ")<br>";
+
+		document.getElementById("answer").innerHTML = output;
+	}
+
+	function trunkMethod() {
+		rawA = document.getElementById("A").value;
+		rawB = document.getElementById("B").value;
+		rawC = document.getElementById("C").value;
+		var factorsA = [];
+		var possibleB;
+		var factorsC = [];
+
+			if (!Number.isInteger(+rawA)) alert("I'm sorry, I need A to be an integer");
+			if (!Number.isInteger(+rawB)) alert("I'm sorry, I need B to be an integer");
+			if (!Number.isInteger(+rawC)) alert("I'm sorry, I need C to be an integer");
+
+			var answer = "";
+			var output = "";
+			
+			output =  "So this is the equation we are going to solve: <br>";
+			output += +rawA + "x<sup>2</sup>";
+
+			if (+rawB < 0) output += " - ";
+			else output += " + ";
+
+			output += Math.abs(+rawB) + "x";
+
+			if (+rawC < 0) output += " - ";
+			else output += " + ";
+
+			output += Math.abs(+rawC) + "<br>";
+
+			output += "<button onclick='part2()'>Continue...</button>";
+			document.getElementById("answer").innerHTML = output;
+		}
+	</script>
+</body>
+</html>
